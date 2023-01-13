@@ -1,47 +1,11 @@
 {
   "subscribeTopics" : [ {
-    "name" : "rolf",
-    "color" : "#B3E6E6"
-  }, {
-    "name" : "fhnw/mbo/batterie",
-    "color" : "#B3E6E6"
-  }, {
-    "name" : "fhnw/mbo/klingel",
-    "color" : "#B3CCFF"
-  }, {
-    "name" : "pesche/random/batterie",
-    "color" : "#4D8080"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/DDATA/nici",
-    "color" : "#B3CCFF"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/DDATA/+",
-    "color" : "#CCB3FF"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/NDATA/nici",
-    "color" : "#B3E6E6"
-  }, {
     "name" : "fhnw/veri/pro2/zugangskontrolle",
     "color" : "#B3E6E6"
   } ],
+
   "publishTopics" : [ {
-    "name" : "rolf"
-  }, {
-    "name" : "fhnw/mbo/batterie"
-  }, {
-    "name" : "fhnw/mbo/klingel"
-  }, {
-    "name" : "pesche/random/batterie"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/DDATA/nici"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/DDATA/+"
-  }, {
-    "name" : "spBv1.0/veri_batteriemgt/NDATA/nici"
-  }, {
     "name" : "fhnw/veri/pro2/zugangskontrolle"
-  }, {
-    "name" : "home/garden/fountain"
   } ],
   "clipboardMessages" : [ ]
 }

@@ -841,15 +841,16 @@
         "name": "trigger",
         "props": [
             {
-                "p": "topic",
-                "vt": "str"
+                "p": "payload"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "ns=17;s=Counter;datatype=Int32",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
         "x": 70,
         "y": 220,
         "wires": [

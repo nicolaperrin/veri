@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8"/>
+        <title>WebSocket demo -</title>
+		<!-- Script barcode library -->
+        <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+    </head>
+    <body>
+		<!-- QR Code Reader -->
+		<!-- Hinweis: Wird die Seite nicht von Localhost oder https aufgerufen, erlauben viele Smartphones keinen Zugriff auf die Kamera.
+			          Als Alternative -> Image wählen und Foto machen.
+		-->
+		
+        <div id="qr-reader" style="width: 600px"></div>
+		
+		<div>Personalseite: Max Muster - Zugang erlaubt</div>
+		<p id="status">-</p>
+        <script>
+			<!-- Blendet den QR Scanner ein -->
+			function showQR(){
+				document.getElementById("qr-reader").style.visibility = "visible"; 
+			}
+			
+			<!-- Blendet den QR Scanner aus -->
+			function hideQR(){
+				document.getElementById("qr-reader").style.visibility = "hidden";
+			}
+		
+			<!-- Event wenn erfolgreich gelesen (DecodeText) gelesener Inhalt -->	
+            function onScanSuccess(decodedText, decodedResult) {
+				<!-- Konsolenausgabe im Browser -->
+                console.log(`Code scanned = ${decodedText}`, decodedResult);
+                
+				<!-- Beispiel für ein Objekt das als JSON an den Webserver geschickt wird, die Attribute können frei geändert werden -->
+                var obj = {
+                    "scannedID" : decodedText,
+                    "action" : "enter"
+                };
+                
+				<!-- Senden der Daten per Websocket -->
+    			ws.send(JSON.stringify(obj));
+            }
+			
+			<!--- Scanner Objekt erstellen und die Event function definieren -->
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                                        	"qr-reader", { fps: 10, qrbox: 250 });          	
+            html5QrcodeScanner.render(onScanSuccess);
+
+			<!-- websocket öffnen -->
+            var ws = new WebSocket("ws://127.0.0.1:1880/entryScanner"),
+            
+            messages = document.createElement('ul');
+            
+			<!-- Eventmethode für Websocket bei eingehender Nachricht -->
+            ws.onmessage = function (event) {
+				<!-- parses the received json data into an javascript object
+				var data = JSON.parse(event.data)
+			
+				/* Hints:
+				
+					JSON Parsing:
+					The received data is stored in event.data e.g. { "abc" : 123 }.
+					After it gets parsed e.g. var jsobject = JSON.parse(event.data)
+					the included key can be access by jsobject.abc from the javascript code.
+				
+	
+				*/
+				
+				if(data.abc == "peng"){
+					document.getElementById("status").innerHTML = "NeueMeldung erhalten";
+					showQR();
+				}
+				
+				if(data.abc == "puff"){
+					document.getElementById("status").innerHTML = "AndereMeldung erhalten";
+					hideQR();
+				}
+				
+            };
+            
+			<!-- Websocket event, wenn die Verbindung hergestellt wurde -->
+            ws.addEventListener('open', (event) => {
+            
+				<!-- Beispiel Meldung für Verbindung hergestellt -->
+                var obj = {
+                    "type" : "connect"
+                };
+                
+    			ws.send(JSON.stringify(obj));
+			});
+            
+            
+            document.body.appendChild(messages);
+        </script>
+    </body>
+</html>

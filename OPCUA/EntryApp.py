@@ -239,7 +239,7 @@ async def main():
     server = Server()
     await server.init()
 
-    ENDPOINT = "opc.tcp://192.168.199.1:5050"
+    ENDPOINT = "opc.tcp://localhost:5050"
     SERVER_NAME = "ZugangskontrolleUA"
 
     server.set_endpoint(ENDPOINT)
